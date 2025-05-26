@@ -24,7 +24,7 @@ def scrap_rsarg(url:str,page: Page,browser, logger):
     try:    
         if url[-1] != '1':
             page.goto(url)
-            logger.info(f"Scraping page {url[-1]}")
+            # logger.info(f"Scraping page {url[-1]}")
 
         page.wait_for_selector(".listing__items")   
         items = page.locator(".listing__item")
@@ -77,7 +77,7 @@ def run(url: str, logger = None, province: str = "tucuman") -> list[dict]:
         data = pagination(url,page, browser, logger)
         browser.close()
     logger.info(f"Scraping completed, found {len(data)} of properties in {province}") 
-    if len(data < 1):
+    if len(data) < 1:
         logger.info(f"No data found")
         raise Exception("No data found")
     return data
