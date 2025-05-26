@@ -5,7 +5,7 @@ from tasks.transform import transform_data
 from tasks.load import load_data
 
 @flow
-def flujo_etl_inmobiliario(url: str, province: str, path: str):
+def flujo_etl_inmobiliario(url: str, province: str):
     logger = get_run_logger()
     
     logger.info("Starting data extraction")
@@ -17,6 +17,6 @@ def flujo_etl_inmobiliario(url: str, province: str, path: str):
     logger.info("Transformed data successfully")
     
     logger.info("Starting data loading")
-    load_data(path, transformed_data)
+    load_data(province, transformed_data)
     logger.info("Data loading completed successfully")
     logger.info("Closing the flow")
