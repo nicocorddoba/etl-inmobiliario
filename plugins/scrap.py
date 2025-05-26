@@ -11,8 +11,12 @@ def pagination(url, page: Page, browser ,logger,):
         browser.close()
         raise Exception("Error: No se pudo cargar la pagina")
     properties = []
+    logger.info(f"Starting to scrape {number_of_pages} pages")
     for i in range(1, int(number_of_pages)):
-        properties.extend(scrap_rsarg(url + f"?pagina-{i}", page, browser, logger))
+        logger.info(f"Scraping page {i}")
+        # scrap_rsarg scraps the data of each property
+        data = scrap_rsarg(url + f"?pagina-{i}", page, browser, logger)
+        properties.extend(data)
     return properties
 
 
@@ -30,6 +34,7 @@ def scrap_rsarg(url:str,page: Page,browser, logger):
         raise Exception("Error: No se pudo cargar la pagina")
     items_count = items.count()
     properties = []
+    logger.info("Starting to add items to list")
     for i in range(items_count):
         item = items.nth(i)
         adress = item.locator("p.card__address").inner_text()
@@ -49,10 +54,10 @@ def scrap_rsarg(url:str,page: Page,browser, logger):
             "info": info,
             "id": id
         })
-        logger.info(f"Item {i+1}: {id}, {adress}, {city}, {price_currency}, {features},{title}, {info}")
+        logger.info(f"Item {id} added")
     return properties
 
-def run(url: str, logger = None, provinces: list[str] = ["tucuman"]):
+def run(url: str, logger = None, provinces: list[str] = ["tucuman"]) -> list[dict]:
     if logger is None:
         from utils.logger import get_logger
         logger = get_logger(__name__)
@@ -64,10 +69,16 @@ def run(url: str, logger = None, provinces: list[str] = ["tucuman"]):
                 viewport={"width": 1280, "height": 800},
                 locale="en-US"
             )
+        logger.info("Browser launched")
         page = context.new_page()
         # page.goto("http://example.com")
         url = url + provinces[0] + "-arg"
+        # Pagination gets the number of pages and scrapes each page
         data = pagination(url,page, browser, logger)
         browser.close()
+    logger.info(f"Scraping completed, found {len(data)} of properties in {provinces}") 
+    if len(data < 1):
+        logger.info(f"No data found")
+        raise Exception("No data found")
     return data
 

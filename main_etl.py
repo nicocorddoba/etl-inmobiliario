@@ -18,6 +18,5 @@ def flujo_transporte(url: str, province: str):
     
     logger.info("Starting data loading")
     load_data(transformed_data)
-    logger.info("Data Stored")
     logger.info("Data loading completed successfully")
     logger.info("Closing the flow")
