@@ -63,7 +63,7 @@ def run(url: str, logger = None, province: str = "tucuman") -> list[dict]:
         logger = get_logger(__name__)
     with sync_playwright() as playwright:
         chromium = playwright.chromium # or "firefox" or "webkit".
-        browser = chromium.launch(headless=False)
+        browser = chromium.launch(headless=True)
         context = browser.new_context(
                 user_agent="Mozilla/5.0 (Windows NT 11.0; Win64; x64)...",
                 viewport={"width": 1280, "height": 800},
