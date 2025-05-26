@@ -57,7 +57,7 @@ def scrap_rsarg(url:str,page: Page,browser, logger):
         logger.info(f"Item {id} added")
     return properties
 
-def run(url: str, logger = None, provinces: list[str] = ["tucuman"]) -> list[dict]:
+def run(url: str, logger = None, province: str = "tucuman") -> list[dict]:
     if logger is None:
         from utils.logger import get_logger
         logger = get_logger(__name__)
@@ -72,11 +72,11 @@ def run(url: str, logger = None, provinces: list[str] = ["tucuman"]) -> list[dic
         logger.info("Browser launched")
         page = context.new_page()
         # page.goto("http://example.com")
-        url = url + provinces[0] + "-arg"
+        url = url + province + "-arg"
         # Pagination gets the number of pages and scrapes each page
         data = pagination(url,page, browser, logger)
         browser.close()
-    logger.info(f"Scraping completed, found {len(data)} of properties in {provinces}") 
+    logger.info(f"Scraping completed, found {len(data)} of properties in {province}") 
     if len(data < 1):
         logger.info(f"No data found")
         raise Exception("No data found")

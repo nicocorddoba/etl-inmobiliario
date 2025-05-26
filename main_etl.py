@@ -5,11 +5,11 @@ from tasks.transform import transform_data
 from tasks.load import load_data
 
 @flow
-def flujo_transporte(url: str, province: str):
+def flujo_etl_inmobiliario(url: str, province: str):
     logger = get_run_logger()
     
     logger.info("Starting data extraction")
-    raw_data = scrap_data(url)
+    raw_data = scrap_data(url, province)
     logger.info("Extracted data successfully")
     
     logger.info("Starting data transformation")
