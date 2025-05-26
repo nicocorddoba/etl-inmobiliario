@@ -13,7 +13,7 @@ def pagination(url, page: Page, browser ,logger,):
     properties = []
     logger.info(f"Starting to scrape {number_of_pages} pages")
     for i in range(1, int(number_of_pages)):
-        logger.info(f"Scraping page {i}")
+        # logger.info(f"Scraping page {i}")
         # scrap_rsarg scraps the data of each property
         data = scrap_rsarg(url + f"?pagina-{i}", page, browser, logger)
         properties.extend(data)
@@ -34,7 +34,7 @@ def scrap_rsarg(url:str,page: Page,browser, logger):
         raise Exception("Error: No se pudo cargar la pagina")
     items_count = items.count()
     properties = []
-    logger.info("Starting to add items to list")
+    # logger.info("Starting to add items to list")
     for i in range(items_count):
         item = items.nth(i)
         adress = item.locator("p.card__address").inner_text()
@@ -54,7 +54,7 @@ def scrap_rsarg(url:str,page: Page,browser, logger):
             "info": info,
             "id": id
         })
-        logger.info(f"Item {id} added")
+        # logger.info(f"Item {id} added")
     return properties
 
 def run(url: str, logger = None, province: str = "tucuman") -> list[dict]:

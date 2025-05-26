@@ -10,13 +10,12 @@ def load_data(province: str, data: list[dict]):
     try:
         logger.info("Starting saving data R2 bucket")
         s3 = S3Bucket.load("s3block-inmobiliaria")
-        json_str = json.dumps(data, indent=2, ensure_ascii=False)
+        json_bytes = json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8")
         today_str = datetime.now().strftime("%Y-%m-%d")
         object_name = f"{province}/{today_str}.json"
-        s3.upload_from_string(
-            data=json_str,
-            key=object_name,
-            # content_type="application/json"
+        s3.write_path(
+            path=object_name,   # ⬅ nombre del objeto en el bucket
+            content=json_bytes        # ⬅ contenido en bytes
         )
         # json.dump(data, open(path+ "\\" + today_str, "w", encoding="utf-8"), indent=2)
     except Exception as e:
