@@ -4,6 +4,9 @@ from tasks.extract import scrap_data
 from tasks.transform import transform_data
 from tasks.load import load_data
 
+import argparse
+# import os
+
 @flow
 def flujo_etl_inmobiliario(url: str, province: str):
     logger = get_run_logger()
@@ -20,3 +23,15 @@ def flujo_etl_inmobiliario(url: str, province: str):
     load_data(province, transformed_data)
     logger.info("Data loading completed successfully")
     logger.info("Closing the flow")
+
+
+if __name__ == "__main__":
+    # Example usage
+    parser = argparse.ArgumentParser(description="Ejecutar flujo ETL inmobiliario.")
+    parser.add_argument("--province", required=True, help="Provincia a scrapear")
+    parser.add_argument("--url", required=True)
+    args = parser.parse_args()
+    url = args.url
+    province = args.province
+    
+    flujo_etl_inmobiliario(url, province)

@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright, Playwright, Page
+from playwright.sync_api import sync_playwright, Page
 
 def pagination(url, page: Page, browser ,logger,):
     try:
@@ -13,7 +13,7 @@ def pagination(url, page: Page, browser ,logger,):
     properties = []
     logger.info(f"Starting to scrape {number_of_pages} pages")
     for i in range(1, int(number_of_pages)):
-        # logger.info(f"Scraping page {i}")
+        logger.info(f"Scraping page {i}")
         # scrap_rsarg scraps the data of each property
         data = scrap_rsarg(url + f"?pagina-{i}", page, browser, logger)
         properties.extend(data)

@@ -1,0 +1,38 @@
+name: Ejecutar ETL Inmobiliario
+
+on:
+  schedule:
+    - cron: '0 0 1,10,20,28 * *'  # A las 00:00 UTC los días 1,10,20,28 de cada mes
+  workflow_dispatch:              # Permite ejecución manual desde GitHub
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+
+    env:
+      PROVINCIA: ${{ vars.PROVINCIA }}
+      URL_ETL: ${{ secrets.URL_ETL }}
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Instalar dependencias
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install --with-deps
+
+      - name: Ejecutar flujo de Prefect
+        env:
+          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
+        run: |
+          source venv/bin/activate
+          python main_etl.py --provincia "$PROVINCIA" --url "$URL_ETL"
