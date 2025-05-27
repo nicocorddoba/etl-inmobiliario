@@ -15,12 +15,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Diagnóstico de variables de entorno
+        env:
+            PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
+            PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
           echo "API URL: $PREFECT_API_URL"
           echo "API Key longitud: ${#PREFECT_API_KEY}"
-        env:
-          PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
-          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
