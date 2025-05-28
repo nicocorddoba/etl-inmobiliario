@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 
 load_dotenv()
-URL = os.getenv("URL_INMOBILIARIO")
+URL = os.getenv("URL")
 
 repo = GitRepository(
     url = "https://github.com/nicocorddoba/etl-inmobiliario.git",
