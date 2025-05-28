@@ -24,7 +24,7 @@ jobs:
         env:
           PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
-          URL: ${{ secrets.PREFECT_URL }}
+          URL: ${{ secrets.URL }}
         run: |
           pip install -r requirements.txt
           python my_flow.py
