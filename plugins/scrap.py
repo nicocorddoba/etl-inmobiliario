@@ -13,10 +13,13 @@ def pagination(url, page: Page, browser ,logger,):
     properties = []
     logger.info(f"Starting to scrape {number_of_pages} pages")
     for i in range(1, int(number_of_pages)):
-        # logger.info(f"Scraping page {i}")
+        logger.info(f"Scraping page {i}")
         # scrap_rsarg scraps the data of each property
         data = scrap_rsarg(url + f"?pagina-{i}", page, browser, logger)
         properties.extend(data)
+        if i >= 40:
+            logger.info("40 paginaciónes alcanzadas, deteniendo la paginación")
+            break
     return properties
 
 
@@ -63,7 +66,17 @@ def run(url: str, logger = None, province: str = "tucuman") -> list[dict]:
         logger = get_logger(__name__)
     with sync_playwright() as playwright:
         chromium = playwright.chromium # or "firefox" or "webkit".
-        browser = chromium.launch(headless=True)
+        browser = chromium.launch(headless=True, args=[
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
+            "--disable-software-rasterizer",
+            "--no-sandbox",
+            "--disable-extensions",
+            "--disable-background-networking",
+            "--disable-sync",
+            "--disable-default-apps",
+            "--mute-audio"
+        ])
         context = browser.new_context(
                 user_agent="Mozilla/5.0 (Windows NT 11.0; Win64; x64)...",
                 viewport={"width": 1280, "height": 800},
