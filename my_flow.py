@@ -18,7 +18,6 @@ PROVINCE_BY_DAY = {
     2: "cordoba",
     3: "mendoza",
     4: "santa-fe",
-    5: "capital-federal"
 }
 
 def get_province_by_day() -> str:
@@ -41,7 +40,7 @@ if __name__ == "__main__":
             "province": get_province_by_day()
             # "path": path
         },
-        work_pool_name="etl-workpool",
+        work_pool_name="ec2-work-pool",
         cron = "0 0 1,10,20,28 * *"
         # tags=["etl", "inmobiliario"]
     )
