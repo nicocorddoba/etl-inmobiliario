@@ -30,8 +30,17 @@ def scrap_propertie_details(url:str,page: Page, logger):
         if page.is_closed():
             logger.warning("Página cerrada, reabriendo nueva página")
             page = page.context.new_page()
-
-        page.goto(url, timeout=20000)
+        try:
+            for attempt in range(2):
+                page.goto(url, timeout=60000)
+                break
+        except TimeoutError as e:
+            logger.warning(f"Timeout al intentar acceder a {url}, intento {attempt + 1}/2")
+            if attempt == 2:
+                raise
+            import time
+            time.sleep(5)
+            
         page.wait_for_selector(".listing__items", timeout=15000)
         items = page.locator(".listing__item")
     except Exception as e:

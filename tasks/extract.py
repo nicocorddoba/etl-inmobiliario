@@ -1,6 +1,7 @@
 from prefect import task, get_run_logger
 from plugins.scrap import run as scrap_run
 from datetime import datetime
+import pytz
 
 PROVINCE_BY_DAY = {
     1: "tucuman",
@@ -13,7 +14,8 @@ def get_province_by_day() -> str:
     """
     Returns the province based on the day of the month.
     """
-    today = datetime.today().day
+    today = datetime.now(pytz.timezone("America/Argentina/Buenos_Aires")).day
+    print(f"Today is day {today} of the month.")
     return PROVINCE_BY_DAY.get(today, "tucuman")
 
 @task
