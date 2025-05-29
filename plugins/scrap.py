@@ -41,7 +41,7 @@ def scrap_propertie_details(url:str,page: Page, logger):
             import time
             time.sleep(5)
             
-        page.wait_for_selector(".listing__items", timeout=15000)
+        page.wait_for_selector(".listing__items", timeout=40000)
         items = page.locator(".listing__item")
     except Exception as e:
         logger.error(f"Error: No se pudo cargar la página {url} (linea 36): {e}")
