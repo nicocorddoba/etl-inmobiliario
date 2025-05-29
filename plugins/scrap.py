@@ -48,7 +48,6 @@ def pagination(base_url, chromium, logger):
         # Cada 10 páginas, reiniciar navegador
         if (i - 1) % 10 == 0:
             if i != 1:
-                print(i)
                 page.close()
                 browser.close()
 
@@ -59,8 +58,8 @@ def pagination(base_url, chromium, logger):
         data = scrap_propertie_details(url, page, logger)
         properties.extend(data)
 
-        if i >= 40:
-            logger.info("40 paginaciones alcanzadas, deteniendo la paginación")
+        if i >= 50:
+            logger.info("50 paginaciones alcanzadas, deteniendo la paginación")
             break
 
     page.close()
