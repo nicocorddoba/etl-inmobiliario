@@ -4,9 +4,9 @@ from datetime import datetime
 
 PROVINCE_BY_DAY = {
     1: "tucuman",
-    2: "cordoba",
-    3: "mendoza",
-    4: "santa-fe",
+    10: "cordoba",
+    20: "mendoza",
+    28: "santa-fe",
 }
 
 def get_province_by_day() -> str:
@@ -24,4 +24,4 @@ def scrap_data(url: str, province: str = get_province_by_day()):
     except Exception as e:
         logger.error(f"Error during data extraction: {e}")
         raise e
-    return data
+    return data, province

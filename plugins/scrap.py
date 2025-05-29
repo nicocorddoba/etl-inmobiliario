@@ -31,7 +31,7 @@ def scrap_propertie_details(url:str,page: Page, logger):
             logger.warning("Página cerrada, reabriendo nueva página")
             page = page.context.new_page()
 
-        page.goto(url, timeout=15000)
+        page.goto(url, timeout=20000)
         page.wait_for_selector(".listing__items", timeout=15000)
         items = page.locator(".listing__item")
     except Exception as e:
@@ -75,6 +75,7 @@ def run(url: str, logger = None, province: str = "tucuman") -> list[dict]:
         from utils.logger import get_logger
         logger = get_logger(__name__)
     with sync_playwright() as playwright:
+        logger.info("Province: " + province)
         chromium = playwright.chromium # or "firefox" or "webkit".
         browser = chromium.launch(headless=True, args=[
             "--disable-gpu",

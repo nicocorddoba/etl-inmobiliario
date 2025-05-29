@@ -3,9 +3,22 @@ from prefect_aws.s3 import S3Bucket
 import json
 from datetime import datetime
 
+PROVINCE_BY_DAY = {
+    1: "tucuman",
+    10: "cordoba",
+    20: "mendoza",
+    28: "santa-fe",
+}
+
+def get_province_by_day() -> str:
+    """
+    Returns the province based on the day of the month.
+    """
+    today = datetime.today().day
+    return PROVINCE_BY_DAY.get(today, "tucuman")
 
 @task
-def load_data(province: str, data: list[dict]):
+def load_data(data: list[dict], province: str = get_province_by_day()):
     logger = get_run_logger()
     try:
         logger.info("Starting saving data R2 bucket")
