@@ -129,7 +129,7 @@ def run(url: str, logger=None, province: str = "tucuman") -> list[dict]:
     with sync_playwright() as playwright:
         logger.info("Province: " + province)
         chromium = playwright.chromium
-        full_url = url + province + "-arg"
+        full_url = url + province + "-arg" + "?orden-masnuevos"
         data = pagination(full_url, chromium, logger)
 
     if len(data) < 1:
