@@ -33,6 +33,8 @@ if __name__ == "__main__":
         # tags=["etl", "inmobiliario"]
     )
     
+    
+    # Deploying the load flow for the API
     FB_URL = os.getenv("FB_URL")
     API_URL = os.getenv("API_URL")
     FB_EMAIL = os.getenv("FB_EMAIL")
