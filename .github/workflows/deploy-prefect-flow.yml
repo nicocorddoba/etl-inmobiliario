@@ -27,6 +27,8 @@ jobs:
           URL: ${{ secrets.URL }}
           FB_URL: ${{ secrets.FB_URL }}
           API_URL: ${{ secrets.API_URL }}
+          FB_EMAIL: ${{ secrets.FB_EMAIL }}
+          FB_PASSWORD: ${{ secrets.FB_PASSWORD }}
         run: |
           pip install -r requirements.txt
           python my_flow.py
