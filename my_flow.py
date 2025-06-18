@@ -34,13 +34,15 @@ if __name__ == "__main__":
     )
     
     FB_URL = os.getenv("FB_URL")
+    API_URL = os.getenv("API_URL")
     flow.from_source(
         source=repo_api,
         entrypoint="main_etl.py:flujo_carga_api"
     ).deploy(
         name="sm-api",
         parameters={
-            "url": FB_URL
+            "api_url": API_URL,
+            "fb_url": FB_URL
         },
         work_pool_name="ec2-work-pool",
         cron = "0 12 * * 2"
