@@ -21,9 +21,6 @@ jobs:
           python-version: "3.13"
 
       - name: Prefect Deploy
-        run: |
-          echo "FB_EMAIL is set: ${FB_EMAIL:+yes}"
-          echo "FB_PASSWORD is set: ${FB_PASSWORD:+yes}"
         env:
           PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
@@ -33,5 +30,7 @@ jobs:
           FB_EMAIL: ${{ secrets.FB_EMAIL }}
           FB_PASSWORD: ${{ secrets.FB_PASSWORD }}
         run: |
+          echo "FB_EMAIL is set: ${FB_EMAIL:+yes}"
+          echo "FB_PASSWORD is set: ${FB_PASSWORD:+yes}"
           pip install -r requirements.txt
           python my_flow.py
