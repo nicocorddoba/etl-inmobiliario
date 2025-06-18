@@ -9,7 +9,7 @@ repo = GitRepository(
     branch="task-develop")
 
 repo_api = GitRepository(
-    url = "https://github.com/nicocorddoba/sm-api.git"
+    url = "https://github.com/nicocorddoba/sm-api.git",
     name = "sm-api",
     branch = "main"
 )
